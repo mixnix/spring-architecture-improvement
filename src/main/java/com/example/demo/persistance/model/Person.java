@@ -2,7 +2,9 @@ package com.example.demo.persistance.model;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +14,8 @@ import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
+@Getter
 @Entity
 public class Person {
 
