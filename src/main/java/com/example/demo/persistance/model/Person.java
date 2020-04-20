@@ -1,12 +1,17 @@
 package com.example.demo.persistance.model;
 
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Person {
 
