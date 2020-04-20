@@ -28,7 +28,7 @@ public class PersonController {
     @GetMapping("/persons/{id}")
     public Person getPerson(@PathVariable Long id) {
         log.info("GET /persons/{}", id);
-        return personRepository.getOne(id);
+        return personRepository.findById(id).get();
     }
 
     @PutMapping("/persons/{id}")
