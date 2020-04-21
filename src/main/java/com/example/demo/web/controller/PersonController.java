@@ -27,7 +27,7 @@ public class PersonController {
     }
 
     @PostMapping("/persons")
-    public PersonDTO createPerson(@ModelAttribute @Valid PersonDTO person) {
+    public PersonDTO createPerson(@RequestBody @Valid PersonDTO person) {
         log.info("POST /persons");
         return personService.createPerson(person);
 
@@ -40,7 +40,7 @@ public class PersonController {
     }
 
     @PutMapping("/persons/{id}")
-    public PersonDTO updatePerson(@ModelAttribute @Valid PersonDTO person, @PathVariable Long id){
+    public PersonDTO updatePerson(@RequestBody @Valid PersonDTO person, @PathVariable Long id){
         log.info("PUT /persons/{}, received data: {}", id, person);
         return personService.updatePerson(person, id);
     }
