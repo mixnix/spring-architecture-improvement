@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,6 +26,7 @@ public class PersonService {
     }
 
     public PersonDTO createPerson(PersonDTO personDTO) {
+        //don't allow id to be not null
         return mapPersonToDTO(personRepository.save(mapDTOToPerson(personDTO)));
     }
 
@@ -52,10 +52,10 @@ public class PersonService {
     }
 
     private static PersonDTO mapPersonToDTO(Person s){
-        return new PersonDTO(s.getFirstName(), s.getLastName(), s.getSex(), s.getBirtdate(), s.getPhoneNumber());
+        return new PersonDTO(s.getId(), s.getFirstName(), s.getLastName(), s.getSex(), s.getBirtdate(), s.getPhoneNumber());
     }
 
     private static Person mapDTOToPerson(PersonDTO d){
-        return new Person(d.getFirstName(), d.getLastName(), d.getSex(), d.getBirtdate(), d.getPhoneNumber());
+        return new Person(null, d.getFirstName(), d.getLastName(), d.getSex(), d.getBirtdate(), d.getPhoneNumber());
     }
 }

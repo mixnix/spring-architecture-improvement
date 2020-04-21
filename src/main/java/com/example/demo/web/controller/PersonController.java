@@ -1,6 +1,5 @@
 package com.example.demo.web.controller;
 
-import com.example.demo.persistance.model.Person;
 import com.example.demo.service.PersonService;
 import com.example.demo.web.dto.PersonDTO;
 import org.slf4j.Logger;
@@ -29,8 +28,8 @@ public class PersonController {
     @PostMapping("/persons")
     public PersonDTO createPerson(@RequestBody @Valid PersonDTO person) {
         log.info("POST /persons");
+        //todo: musze walidowac by nie dostac tu id, jak to zrobic by korzystac z jednej klasy (PersonDTO) ale miec rozne reguly walidacji
         return personService.createPerson(person);
-
     }
 
     @GetMapping("/persons/{id}")
