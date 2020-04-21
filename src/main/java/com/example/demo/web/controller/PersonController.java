@@ -2,6 +2,7 @@ package com.example.demo.web.controller;
 
 import com.example.demo.persistance.model.Person;
 import com.example.demo.service.PersonService;
+import com.example.demo.web.dto.PersonDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +21,19 @@ public class PersonController {
     private final Logger log = LoggerFactory.getLogger(PersonController.class);
 
     @GetMapping("/persons")
-    public Collection<Person> getAllPersons() {
+    public Collection<PersonDTO> getAllPersons() {
         log.info("GET /persons");
         return personService.getAllPersons();
     }
 
     @GetMapping("/persons/{id}")
-    public Person getPerson(@PathVariable Long id) {
+    public PersonDTO getPerson(@PathVariable Long id) {
         log.info("GET /persons/{}", id);
         return personService.getPerson(id);
     }
 
     @PutMapping("/persons/{id}")
-    public Person updatePerson(@ModelAttribute @Valid Person person, @PathVariable Long id){
+    public PersonDTO updatePerson(@ModelAttribute @Valid PersonDTO person, @PathVariable Long id){
         log.info("PUT /persons/{}, received data: {}", id, person);
 
         return personService.updatePerson(person, id);

@@ -38,4 +38,12 @@ public class Person {
 
     @Column
     private String phoneNumber;
+
+    public Person(String firstName, String lastName, String sex, Date birtdate, String phoneNumber){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.sex = sex;
+        this.birtdate = birtdate;
+        this.phoneNumber = phoneNumber;
+    }
 }
