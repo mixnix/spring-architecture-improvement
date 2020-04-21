@@ -26,6 +26,13 @@ public class PersonController {
         return personService.getAllPersons();
     }
 
+    @PostMapping("/persons")
+    public PersonDTO createPerson(@ModelAttribute @Valid PersonDTO person) {
+        log.info("POST /persons");
+        return personService.createPerson(person);
+
+    }
+
     @GetMapping("/persons/{id}")
     public PersonDTO getPerson(@PathVariable Long id) {
         log.info("GET /persons/{}", id);
@@ -35,14 +42,12 @@ public class PersonController {
     @PutMapping("/persons/{id}")
     public PersonDTO updatePerson(@ModelAttribute @Valid PersonDTO person, @PathVariable Long id){
         log.info("PUT /persons/{}, received data: {}", id, person);
-
         return personService.updatePerson(person, id);
     }
 
     @DeleteMapping("/persons/{id}")
     public void deletePerson(@PathVariable Long id){
         log.info("DELETE /persons/{}", id);
-
         personService.deletePerson(id);
     }
 }
