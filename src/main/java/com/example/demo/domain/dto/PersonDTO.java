@@ -1,15 +1,12 @@
-package com.example.demo.web.dto;
+package com.example.demo.domain.dto;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-@Getter
-@Setter
+@Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class PersonDTO {
@@ -22,7 +19,7 @@ public class PersonDTO {
 
     private String sex;
 
-    private Date birtdate;
+    private LocalDate birthDate;
 
     private String phoneNumber;
 }

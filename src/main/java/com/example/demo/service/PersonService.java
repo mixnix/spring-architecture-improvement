@@ -1,63 +1,13 @@
 package com.example.demo.service;
 
-import com.example.demo.persistance.dao.PersonRepository;
-import com.example.demo.persistance.model.Person;
-import com.example.demo.web.dto.PersonDTO;
-import com.example.demo.web.exception.PersonNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.example.demo.domain.dao.Person;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.List;
 
-@Service
-public class PersonService {
-
-    @Autowired
-    private PersonRepository personRepository;
-
-    public Collection<PersonDTO> getAllPersons(){
-        Collection<Person> tempPersons = personRepository.findAll();
-
-        return tempPersons.stream().map(
-                PersonService::mapPersonToDTO
-        ).collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    public PersonDTO createPerson(PersonDTO personDTO) {
-        //don't allow id to be not null
-        return mapPersonToDTO(personRepository.save(mapDTOToPerson(personDTO)));
-    }
-
-    public PersonDTO getPerson(Long id){
-        Optional<Person> personOptional = personRepository.findById(id);
-
-        //todo: co zrobic w sytuacji gdy obiekt nie istnieje? nie wiem czy zwracanie nulla jest najlepsz
-        return personOptional.map(PersonService::mapPersonToDTO)
-                .orElseThrow(() -> new PersonNotFoundException(id));
-    }
-
-    public PersonDTO updatePerson(PersonDTO person, Long id){
-        Person tempPerson = personRepository.getOne(id);
-        tempPerson.setFirstName(person.getFirstName());
-        tempPerson.setLastName(person.getLastName());
-        tempPerson.setSex(person.getSex());
-        tempPerson.setBirtdate(person.getBirtdate());
-        tempPerson.setPhoneNumber(person.getPhoneNumber());
-        return mapPersonToDTO(personRepository.save(tempPerson));
-    }
-
-    public void deletePerson(Long id){
-        personRepository.deleteById(id);
-    }
-
-    private static PersonDTO mapPersonToDTO(Person s){
-        return new PersonDTO(s.getId(), s.getFirstName(), s.getLastName(), s.getSex(), s.getBirtdate(), s.getPhoneNumber());
-    }
-
-    private static Person mapDTOToPerson(PersonDTO d){
-        return new Person(null, d.getFirstName(), d.getLastName(), d.getSex(), d.getBirtdate(), d.getPhoneNumber());
-    }
+public interface PersonService {
+    List<Person> getAll();
+    Person create(Person person);
+    Person getById(Long id);
+    Person update(Person person, Long id);
+    void deleteById(Long id);
 }
