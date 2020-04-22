@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.persistance.dao.PersonRepository;
 import com.example.demo.persistance.model.Person;
 import com.example.demo.web.dto.PersonDTO;
+import com.example.demo.web.exception.PersonNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,8 @@ public class PersonService {
         Optional<Person> personOptional = personRepository.findById(id);
 
         //todo: co zrobic w sytuacji gdy obiekt nie istnieje? nie wiem czy zwracanie nulla jest najlepsz
-        return personOptional.map(PersonService::mapPersonToDTO).orElse(null);
+        return personOptional.map(PersonService::mapPersonToDTO)
+                .orElseThrow(() -> new PersonNotFoundException(id));
     }
 
     public PersonDTO updatePerson(PersonDTO person, Long id){
