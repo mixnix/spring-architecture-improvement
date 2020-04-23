@@ -14,6 +14,7 @@ public class PersonMapperImpl implements PersonMapper {
     @Override
     public PersonDTO mapPersonToDTO(Person person) {
         return PersonDTO.builder()
+                .id(person.getId())
                 .birthDate(person.getBirthDate())
                 .firstName(person.getFirstName())
                 .lastName(person.getLastName())

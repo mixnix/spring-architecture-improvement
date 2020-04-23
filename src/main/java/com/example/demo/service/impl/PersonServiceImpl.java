@@ -39,11 +39,13 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person update(Person person, Long id){
         Person tempPerson = personRepository.getOne(id);
+
         tempPerson.setFirstName(person.getFirstName());
         tempPerson.setLastName(person.getLastName());
         tempPerson.setSex(person.getSex());
         tempPerson.setBirthDate(person.getBirthDate());
         tempPerson.setPhoneNumber(person.getPhoneNumber());
+
         return personRepository.save(tempPerson);
     }
 
