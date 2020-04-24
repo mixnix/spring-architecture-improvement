@@ -1,6 +1,5 @@
 package com.example.demo.domain.dao;
 
-
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;

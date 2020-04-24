@@ -5,6 +5,7 @@ import com.example.demo.service.PersonService;
 import com.example.demo.domain.dto.PersonDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -27,10 +28,11 @@ public class PersonController {
     }
 
     @PostMapping
-    public PersonDTO createPerson(@RequestBody @Valid PersonDTO person) {
+    public ResponseEntity<PersonDTO> createPerson(@RequestBody @Valid PersonDTO person) {
         log.info("POST /persons");
         //todo: musze walidowac by nie dostac tu id, jak to zrobic by korzystac z jednej klasy (PersonDTO) ale miec rozne reguly walidacji
-        return personMapper.mapPersonToDTO(personService.create(personMapper.mapDTOToPerson(person)));
+        return ResponseEntity.status(201)
+                .body(personMapper.mapPersonToDTO(personService.create(personMapper.mapDTOToPerson(person))));
     }
 
     @GetMapping("/{id}")
