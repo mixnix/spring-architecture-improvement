@@ -10,4 +10,5 @@ public interface PersonService {
     Person getById(Long id);
     Person update(Person person, Long id);
     void deleteById(Long id);
+    Person create(String firstName, String lastName);
 }

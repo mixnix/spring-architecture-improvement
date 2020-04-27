@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.repository.PersonRepository;
 import com.example.demo.domain.dao.Person;
+import com.example.demo.repository.PersonRepository;
 import com.example.demo.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,6 +36,8 @@ public class PersonServiceImpl implements PersonService {
                 .orElseThrow(() -> new EntityNotFoundException("Could not find person with id: " + id));
     }
 
+
+
     @Override
     public Person update(Person person, Long id){
         Person tempPerson = personRepository.getOne(id);
@@ -43,7 +45,6 @@ public class PersonServiceImpl implements PersonService {
         tempPerson.setFirstName(person.getFirstName());
         tempPerson.setLastName(person.getLastName());
         tempPerson.setSex(person.getSex());
-        tempPerson.setBirthDate(person.getBirthDate());
         tempPerson.setPhoneNumber(person.getPhoneNumber());
 
         return personRepository.save(tempPerson);
@@ -52,5 +53,14 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public void deleteById(Long id){
         personRepository.deleteById(id);
+    }
+
+    @Override
+    public Person create(String firstName, String lastName) {
+        Person person = new Person();
+        person.setFirstName(firstName);
+        person.setLastName(lastName);
+
+        return personRepository.save(person);
     }
 }
