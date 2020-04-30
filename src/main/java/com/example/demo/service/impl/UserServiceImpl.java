@@ -5,8 +5,8 @@ import com.example.demo.domain.dao.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.PersonService;
 import com.example.demo.service.UserService;
-import com.example.demo.service.security.JwtUtil;
-import com.example.demo.service.security.MyUserDetailsService;
+import com.example.demo.security.JwtUtil;
+import com.example.demo.security.MyUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -60,6 +60,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.findByUsername(username).orElse(null);
     }
 }

@@ -9,6 +9,7 @@ import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,12 +25,12 @@ public class DatabaseLoader implements CommandLineRunner {
 
     private final AuthorityRepository authorityRepository;
 
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     @Override
     public void run(String... strings) throws Exception {
-        Authority managerAuthority = authorityRepository.save(new Authority("MANAGER"));
+        Authority adminAuthority = authorityRepository.save(new Authority("ADMIN"));
         Authority employeeAuthority = authorityRepository.save(new Authority("EMPLOYEE"));
 
         Person agnieszkaPerson = personRepository.save(new Person("agnieszka", "nazwisko",
@@ -40,21 +41,20 @@ public class DatabaseLoader implements CommandLineRunner {
 
         User agnieszka = new User();
         agnieszka.setUsername("manager@foo.com");
-        agnieszka.setPassword(bCryptPasswordEncoder.encode("foo"));
+        agnieszka.setPassword(passwordEncoder.encode("foo"));
         agnieszka.setPerson(agnieszkaPerson);
         HashSet<Authority> agnieszkaAuthorities = new HashSet<>();
-        agnieszkaAuthorities.add(managerAuthority);
+        agnieszkaAuthorities.add(adminAuthority);
         agnieszka.setAuthorities(agnieszkaAuthorities);
         userRepository.save(agnieszka);
 
         User mlody = new User();
         mlody.setUsername("mlody@foo.com");
-        mlody.setPassword(bCryptPasswordEncoder.encode("foo"));
+        mlody.setPassword(passwordEncoder.encode("foo"));
         mlody.setPerson(mlodyPerson);
         HashSet<Authority> mlodyAuthorities = new HashSet<>();
         mlodyAuthorities.add(employeeAuthority);
         mlody.setAuthorities(mlodyAuthorities);
         userRepository.save(mlody);
     }
-
 }

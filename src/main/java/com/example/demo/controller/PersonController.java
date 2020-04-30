@@ -6,6 +6,7 @@ import com.example.demo.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -15,6 +16,7 @@ import java.util.List;
 @RequestMapping("/api/persons")
 @Slf4j
 @RequiredArgsConstructor
+@PreAuthorize("hasAuthority('ADMIN')")
 public class PersonController {
 
     private final PersonService personService;
@@ -39,12 +41,14 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("@securityExpressions.hasPersonId(authentication,#id) or hasAuthority('ADMIN')")
     public PersonDTO getPerson(@PathVariable Long id) {
         log.info("GET /api/persons/{}", id);
         return personMapper.mapPersonToDTO(personService.getById(id));
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("@securityExpressions.hasPersonId(authentication,#id) or hasAuthority('ADMIN')")
     public PersonDTO updatePerson(@RequestBody @Valid PersonDTO person, @PathVariable Long id){
         log.info("PUT /api/persons/{}, received data: {}", id, person);
         return personMapper.mapPersonToDTO(personService.update(personMapper.mapDTOToPerson(person), id));

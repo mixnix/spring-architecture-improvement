@@ -10,11 +10,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableJpaAuditing
 public class DemoApplication {
 
-    @Bean
-    BCryptPasswordEncoder bCryptPasswordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }

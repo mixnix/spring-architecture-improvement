@@ -23,8 +23,8 @@ public class SecurityExpressions {
         }else{
             return false;
         }
-        if (userRepository.findByUsername(username).getPerson()!=null){
-            Long userPersonId = userRepository.findByUsername(username).getPerson().getId();
+        if (userRepository.findByUsername(username).isPresent()){
+            Long userPersonId = userRepository.findByUsername(username).get().getPerson().getId();
             return userPersonId.equals(personId);
         }else{
             return false;
