@@ -50,6 +50,7 @@ public class DatabaseLoader implements CommandLineRunner {
                 .sex("male")
                 .phoneNumber("123456789")
                 .build();
+
         HashSet<Authority> mlodyAuthorities = new HashSet<>();
         mlodyAuthorities.add(employeeAuthority);
         mlody.setAuthorities(mlodyAuthorities);
