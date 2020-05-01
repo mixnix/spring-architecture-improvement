@@ -10,10 +10,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
-
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -35,14 +35,23 @@ public class User implements UserDetails {
     @NotBlank(message = "Hasło jest wymagane")
     private String password;
 
-    @OneToOne
-    Person person;
+    private String firstName;
+
+    private String lastName;
+
+    private String sex;
+
+    private LocalDate birthDate;
+
+    private String phoneNumber;
+
 
     @CreatedDate
     private LocalDateTime createdDate;
 
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
+
 
     @ManyToMany
     private Set<Authority> authorities;

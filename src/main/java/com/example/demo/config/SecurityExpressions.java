@@ -7,7 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 
-
 @Configuration
 @RequiredArgsConstructor
 public class SecurityExpressions {
@@ -24,8 +23,8 @@ public class SecurityExpressions {
             return false;
         }
         if (userRepository.findByUsername(username).isPresent()){
-            Long userPersonId = userRepository.findByUsername(username).get().getPerson().getId();
-            return userPersonId.equals(personId);
+            Long userId = userRepository.findByUsername(username).get().getId();
+            return userId.equals(personId);
         }else{
             return false;
         }

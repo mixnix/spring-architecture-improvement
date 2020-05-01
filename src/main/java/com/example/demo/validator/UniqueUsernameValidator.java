@@ -1,6 +1,6 @@
 package com.example.demo.validator;
 
-import com.example.demo.domain.dto.RegistrationDTO;
+import com.example.demo.domain.dto.RegistrationRequestDTO;
 import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -8,7 +8,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 @RequiredArgsConstructor
-public class UniqueUsernameValidator implements ConstraintValidator<UniqueUsername, RegistrationDTO> {
+public class UniqueUsernameValidator implements ConstraintValidator<UniqueUsername, RegistrationRequestDTO> {
 
     private final UserRepository userRepository;
 
@@ -17,7 +17,7 @@ public class UniqueUsernameValidator implements ConstraintValidator<UniqueUserna
     }
  
     @Override
-    public boolean isValid(RegistrationDTO form, ConstraintValidatorContext context) {
+    public boolean isValid(RegistrationRequestDTO form, ConstraintValidatorContext context) {
         return !userRepository.findByUsername(form.getUsername()).isPresent();
     }
  

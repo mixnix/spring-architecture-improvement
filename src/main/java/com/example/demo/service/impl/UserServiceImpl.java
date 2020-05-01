@@ -1,9 +1,7 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.domain.dao.Person;
 import com.example.demo.domain.dao.User;
 import com.example.demo.repository.UserRepository;
-import com.example.demo.service.PersonService;
 import com.example.demo.service.UserService;
 import com.example.demo.security.JwtUtil;
 import com.example.demo.security.MyUserDetailsService;
@@ -15,26 +13,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    private final PersonService personService;
-
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private final AuthenticationManager authenticationManager;
-
-    private final JwtUtil jwtTokenUtil;
-
-    private final MyUserDetailsService userDetailsService;
-
     @Override
-    public User create(User user, String firstName, String lastName) {
-        Person person = personService.create(firstName, lastName);
-        user.setPerson(person);
+    public User create(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         //todo: dodaj walidacje uzytkownika!!!
 
@@ -42,24 +34,41 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String authenticate(String username, String password) throws Exception {
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(username, password)
-            );
-        }
-        catch (BadCredentialsException e) {
-            throw new Exception("Incorrect username or password", e);
-        }
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username).orElse(null);
+    }
 
-        final UserDetails userDetails = userDetailsService
-                .loadUserByUsername(username);
 
-        return jwtTokenUtil.generateToken(userDetails);
+    @Override
+    public List<User> getAll(){
+        return userRepository.findAll();
+
     }
 
     @Override
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username).orElse(null);
+    public User getById(Long id){
+        Optional<User> personOptional = userRepository.findById(id);
+
+        return personOptional
+                .orElseThrow(() -> new EntityNotFoundException("Could not find person with id: " + id));
+    }
+
+
+
+    @Override
+    public User update(User person, Long id){
+        User tempPerson = userRepository.getOne(id);
+
+        tempPerson.setFirstName(person.getFirstName());
+        tempPerson.setLastName(person.getLastName());
+        tempPerson.setSex(person.getSex());
+        tempPerson.setPhoneNumber(person.getPhoneNumber());
+
+        return userRepository.save(tempPerson);
+    }
+
+    @Override
+    public void deleteById(Long id){
+        userRepository.deleteById(id);
     }
 }

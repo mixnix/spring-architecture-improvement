@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @EqualPasswords
 @UniqueUsername
-public class RegistrationDTO {
+public class RegistrationRequestDTO {
 
     @Email(message = "Wprowadź poprawny email")
     @NotBlank(message = "Wprowadź email")

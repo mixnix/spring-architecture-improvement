@@ -1,18 +1,18 @@
 package com.example.demo.mapper.impl;
 
-import com.example.demo.domain.dao.Person;
+import com.example.demo.domain.dao.User;
 import com.example.demo.domain.dto.PersonDTO;
-import com.example.demo.mapper.PersonMapper;
+import com.example.demo.mapper.PersonalDataDTOMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class PersonMapperImpl implements PersonMapper {
+public class PersonalDataDTOMapperImpl implements PersonalDataDTOMapper {
 
     @Override
-    public PersonDTO mapPersonToDTO(Person person) {
+    public PersonDTO mapPersonToDTO(User person) {
         return PersonDTO.builder()
                 .id(person.getId())
                 .birthDate(person.getBirthDate())
@@ -24,8 +24,8 @@ public class PersonMapperImpl implements PersonMapper {
     }
 
     @Override
-    public Person mapDTOToPerson(PersonDTO personDTO) {
-        return Person.builder()
+    public User mapDTOToPerson(PersonDTO personDTO) {
+        return User.builder()
                 .birthDate(personDTO.getBirthDate())
                 .firstName(personDTO.getFirstName())
                 .lastName(personDTO.getLastName())
@@ -35,14 +35,14 @@ public class PersonMapperImpl implements PersonMapper {
     }
 
     @Override
-    public List<PersonDTO> mapPersonListToDTOList(List<Person> personList) {
+    public List<PersonDTO> mapPersonListToDTOList(List<User> personList) {
         return personList.stream()
                 .map(this::mapPersonToDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Person> mapDTOListToPersonList(List<PersonDTO> personDTOList) {
+    public List<User> mapDTOListToPersonList(List<PersonDTO> personDTOList) {
         return personDTOList.stream()
                 .map(this::mapDTOToPerson)
                 .collect(Collectors.toList());
