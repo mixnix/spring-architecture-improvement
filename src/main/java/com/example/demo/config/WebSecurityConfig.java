@@ -2,12 +2,8 @@ package com.example.demo.config;
 
 import com.example.demo.security.JwtAuthenticationFilter;
 import com.example.demo.security.JwtAuthorizationFilter;
-import com.example.demo.security.JwtRequestFilter;
 import com.example.demo.security.MyUserDetailsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,7 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -26,21 +21,10 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private final PasswordEncoder passwordEncoder;
 
-//	private final JwtRequestFilter jwtRequestFilter;
-//
-//	@Bean
-//	public JwtRequestFilter jwtAuthenticationFilter() { return new JwtRequestFilter(); }
-
 	@Override
 	protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
 		authenticationManagerBuilder.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder);
 	}
-
-//	@Override
-//	@Bean
-//	protected AuthenticationManager authenticationManager() throws Exception {
-//		return super.authenticationManager();
-//	}
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {

@@ -22,6 +22,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -44,13 +45,11 @@ public class User implements UserDetails {
 
     private String phoneNumber;
 
-
     @CreatedDate
     private LocalDateTime createdDate;
 
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
-
 
     @ManyToMany
     private Set<Authority> authorities;

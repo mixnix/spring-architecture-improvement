@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+//todo: Not used class but may be used for example for websockets
 @Service
 public class JwtUtil {
 
