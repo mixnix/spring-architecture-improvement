@@ -34,7 +34,6 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.addFilter(new JwtAuthorizationFilter(authenticationManager()))
 				.sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 		//todo: usun ta linijke, jest tylko po to by mozna bylo dostac sie do h2 console
 		httpSecurity.headers().frameOptions().disable();
 	}
