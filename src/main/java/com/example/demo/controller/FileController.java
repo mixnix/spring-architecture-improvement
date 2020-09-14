@@ -18,7 +18,7 @@ public class FileController {
     @GetMapping
     public ResponseEntity<Object> getFile(@RequestParam String filename){
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("X-Accel-Redirect", "/secure");
+        httpHeaders.set("X-Accel-Redirect", "secure");
         httpHeaders.set("Location-File", filename);
         return ResponseEntity.ok().headers(httpHeaders).build();
     }
